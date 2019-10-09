@@ -86,7 +86,7 @@ static struct SystemConfig
 {
 	int velocityIterations = 20;
 	int pressureIterations = 40;
-	int xThreads = 64;
+	int xThreads = 80;
 	int yThreads = 1;
 } sConfig;
 
@@ -97,8 +97,8 @@ void setConfig(
 	float cDiffuion = 0.8f,
 	float dDiffuion = 1.2f,
 	float force = 5000.0f,
-	float bloomIntense = 250000.0f,
-	int radius = 500,
+	float bloomIntense = 0.1f,
+	int radius = 400,
 	bool bloom = true
 )
 {
@@ -310,7 +310,9 @@ __global__ void advect(Particle* newField, Particle* oldField, size_t xSize, siz
 	// find new particle tracing where it came from
 	Particle p = interpolate(pos - Pold.u * dt, oldField, xSize, ySize);
 	p.u = p.u * decay;
-	p.color = p.color * decay;
+	p.color.R = min(1.0f, pow(p.color.R, 1.005f) * decay);
+	p.color.G = min(1.0f, pow(p.color.G, 1.005f) * decay);
+	p.color.B = min(1.0f, pow(p.color.B, 1.005f) * decay);
 	newField[y * xSize + x] = p;
 }
 
@@ -423,13 +425,13 @@ __global__ void applyVorticity(Particle* newField, Particle* oldField, float* vF
 }
 
 // adds flashlight effect near the mouse position
-__global__ void applyBloom(uint8_t* colorField, size_t xSize, size_t ySize, int xpos, int ypos, float bloomIntense)
+__global__ void applyBloom(uint8_t* colorField, size_t xSize, size_t ySize, int xpos, int ypos, float radius, float bloomIntense)
 {
 	int x = blockIdx.x * blockDim.x + threadIdx.x;
 	int y = blockIdx.y * blockDim.y + threadIdx.y;
 	int pos = 4 * (y * xSize + x);
 
-	float e = expf(-(powf(x - xpos, 2) + powf(y - ypos, 2)) * (1.0f / (bloomIntense + 1e-5f)));
+	float e = bloomIntense * expf(-(powf(x - xpos, 2) + powf(y - ypos, 2)) / pow(radius, 2));
 
 	uint8_t R = colorField[pos + 0];
 	uint8_t G = colorField[pos + 1];
@@ -518,7 +520,7 @@ void computeField(uint8_t* result, float dt, int x1pos, int y1pos, int x2pos, in
 	// apply bloom in mouse pos
 	if (config.bloomEnabled && timeSincePress < 5.0f)
 	{
-		applyBloom<<<numBlocks, threadsPerBlock>>>(colorField, xSize, ySize, x2pos, y2pos, config.bloomIntense / timeSincePress);
+		applyBloom<<<numBlocks, threadsPerBlock>>>(colorField, xSize, ySize, x2pos, y2pos, config.radius, config.bloomIntense);
 	}
 
 	// copy image to cpu
