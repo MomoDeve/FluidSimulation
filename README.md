@@ -5,7 +5,7 @@ You need Cuda Toolkit compiler and SFML library to build project
 - Cuda Toolkit: https://developer.nvidia.com/accelerated-computing-toolkit
 - SFML library: https://www.sfml-dev.org/download.php
 - CUDA code located in kernel.cu file
-- SFML window renderer located in main.cpp
+- SFML window renderer located in Source.cpp
 
 This is a free-time individual project and you can use code from this repository for any of your needs.
 
