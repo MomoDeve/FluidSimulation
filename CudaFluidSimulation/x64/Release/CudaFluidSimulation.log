@@ -1,0 +1,13 @@
+﻿  Compiling CUDA source file kernel.cu...
+  
+  D:\repos\FluidSimulation\CudaFluidSimulation>"D:\files\Nvidia\CudaToolkit\bin\nvcc.exe" -gencode=arch=compute_30,code=\"sm_30,compute_30\" --use-local-env -ccbin "D:\files\Visual Studio\VC\Tools\MSVC\14.27.29110\bin\HostX86\x64" -x cu  -I"D:\SFML-2.5.1\include" -ID:\files\Nvidia\CudaToolkit\include -ID:\files\Nvidia\CudaToolkit\include -ID:\files\Nvidia\CudaToolkit\include     --keep-dir x64\Release -maxrregcount=0  --machine 64 --compile -cudart static     -DSFML_STATIC -DWIN32 -DWIN64 -DNDEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /O2 /Fdx64\Release\vc142.pdb /FS /Zi  /MD " -o x64\Release\kernel.cu.obj "D:\repos\FluidSimulation\CudaFluidSimulation\kernel.cu" 
+  kernel.cu
+D:/repos/FluidSimulation/CudaFluidSimulation/kernel.cu(475): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:/repos/FluidSimulation/CudaFluidSimulation/kernel.cu(525): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     Creating library D:\repos\FluidSimulation\FluidSimulation\x64\Release\CudaFluidSimulation.lib and object D:\repos\FluidSimulation\FluidSimulation\x64\Release\CudaFluidSimulation.exp
+  Generating code
+  0 of 163 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  CudaFluidSimulation.vcxproj -> D:\repos\FluidSimulation\FluidSimulation\x64\Release\CudaFluidSimulation.exe

@@ -9,6 +9,8 @@
 
 using uint8_t = unsigned char;
 
+#define CUDA_CALL(x) cudaError_t error = cudaGetLastError(); if (error != cudaSuccess) { std::cout << cudaGetErrorName(error) << std::endl; std::abort(); } x
+
 struct Vec2
 {
 	float x = 0.0, y = 0.0;
@@ -145,7 +147,7 @@ void cudaInit(size_t x, size_t y)
 
 	xSize = x, ySize = y;
 
-	cudaSetDevice(0);
+	CUDA_CALL(cudaSetDevice(0));
 	cudaMalloc(&colorField, xSize * ySize * 4 * sizeof(uint8_t));
 	cudaMalloc(&oldField, xSize * ySize * sizeof(Particle));
 	cudaMalloc(&newField, xSize * ySize * sizeof(Particle));

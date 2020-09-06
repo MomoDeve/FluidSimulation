@@ -1,0 +1,10 @@
+﻿  Compiling CUDA source file kernel.cu...
+  
+  D:\repos\FluidSimulation\CudaFluidSimulation>"D:\files\Nvidia\CudaToolkit\bin\nvcc.exe" -gencode=arch=compute_30,code=\"sm_30,compute_30\" --use-local-env -ccbin "D:\files\Visual Studio\VC\Tools\MSVC\14.27.29110\bin\HostX86\x64" -x cu  -I"D:\SFML-2.5.1\include" -ID:\files\Nvidia\CudaToolkit\include -ID:\files\Nvidia\CudaToolkit\include -ID:\files\Nvidia\CudaToolkit\include  -G   --keep-dir x64\Debug -maxrregcount=0  --machine 64 --compile -cudart static  -g   -DSFML_STATIC -DWIN32 -DWIN64 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od /Fdx64\Debug\vc142.pdb /FS /Zi /RTC1 /MDd " -o x64\Debug\kernel.cu.obj "D:\repos\FluidSimulation\CudaFluidSimulation\kernel.cu" 
+  kernel.cu
+D:/repos/FluidSimulation/CudaFluidSimulation/kernel.cu(475): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:/repos/FluidSimulation/CudaFluidSimulation/kernel.cu(525): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Source.cpp
+D:\repos\FluidSimulation\CudaFluidSimulation\Source.cpp(49,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+     Creating library D:\repos\FluidSimulation\FluidSimulation\x64\Debug\CudaFluidSimulation.lib and object D:\repos\FluidSimulation\FluidSimulation\x64\Debug\CudaFluidSimulation.exp
+  CudaFluidSimulation.vcxproj -> D:\repos\FluidSimulation\FluidSimulation\x64\Debug\CudaFluidSimulation.exe

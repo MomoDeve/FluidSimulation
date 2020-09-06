@@ -3,6 +3,19 @@
 #include <cstdlib>
 #include <cmath>
 
+#if defined(NDEBUG)
+	#pragma comment(lib, "sfml-graphics-s.lib")
+	#pragma comment(lib, "sfml-system-s.lib")
+	#pragma comment(lib, "sfml-window-s.lib")
+#else
+	#pragma comment(lib, "sfml-graphics-s-d.lib")
+	#pragma comment(lib, "sfml-system-s-d.lib")
+	#pragma comment(lib, "sfml-window-s-d.lib")
+#endif
+
+#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "opengl32.lib")
+
 //SFML REQUIRED TO LAUNCH THIS CODE
 
 #define SCALE 2
