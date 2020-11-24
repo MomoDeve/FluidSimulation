@@ -387,7 +387,7 @@ __global__ void applyForce(Particle* field, size_t xSize, size_t ySize, Color3f 
 	int x = blockIdx.x * blockDim.x + threadIdx.x;
 	int y = blockIdx.y * blockDim.y + threadIdx.y;
 
-	float e = expf((-(powf(x - pos.x, 2) + powf(y - pos.y, 2))) / r);
+	float e = expf(-((x - pos.x) * (x - pos.x) + (y - pos.y) * (y - pos.y)) / r);
 	Vec2 uF = F * dt * e;
 	Particle& p = field[y * xSize + x];
 	p.u = p.u + uF;
@@ -433,7 +433,7 @@ __global__ void applyBloom(uint8_t* colorField, size_t xSize, size_t ySize, int 
 	int y = blockIdx.y * blockDim.y + threadIdx.y;
 	int pos = 4 * (y * xSize + x);
 
-	float e = bloomIntense * expf(-(powf(x - xpos, 2) + powf(y - ypos, 2) + 1.0f) / pow(radius, 2));
+	float e = bloomIntense * expf(-((x - xpos) * (x - xpos) + (y - ypos) * (y - ypos) + 1.0f) / (radius * radius));
 
 	uint8_t R = colorField[pos + 0];
 	uint8_t G = colorField[pos + 1];
